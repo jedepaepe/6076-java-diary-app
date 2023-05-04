@@ -5,19 +5,16 @@ public class Diary {
     private String title;
     private String description;
     private String begin;
-    private String isPublic;
+    private boolean isPublic;
 
-    public Diary() {
-    }
-
-    public Diary(String title, String description, String begin, String isPublic) {
+    public Diary(String title, String description, String begin, boolean isPublic) {
         this.title = title;
         this.description = description;
         this.begin = begin;
         this.isPublic = isPublic;
     }
 
-    public Diary(int id, String title, String description, String begin, String isPublic) {
+    public Diary(int id, String title, String description, String begin, boolean isPublic) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -57,11 +54,11 @@ public class Diary {
         this.begin = begin;
     }
 
-    public String getIsPublic() {
+    public boolean isPublic() {
         return isPublic;
     }
 
-    public void setIsPublic(String isPublic) {
-        this.isPublic = isPublic;
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
     }
 }

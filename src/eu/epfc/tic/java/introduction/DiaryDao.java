@@ -1,12 +1,11 @@
 package eu.epfc.tic.java.introduction;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DiaryDao {
-    private static final String CONNECTION_STRING = "jdbc:h2:./diaries";
+    private static final String CONNECTION_STRING = "jdbc:h2:./diary";
 
     public static void initialize() {
         try (Connection connection = DriverManager.getConnection(CONNECTION_STRING)) {
@@ -15,7 +14,7 @@ public class DiaryDao {
                     "TITLE varchar(100) not null," +
                     "DESCRIPTION varchar(1000)," +
                     "BEGIN varchar(40) not null," +
-                    "ISPUBLIC varchar(8)" +
+                    "ISPUBLIC boolean" +
                     ")";
             Statement statement = connection.createStatement();
             statement.execute(sql);
@@ -35,7 +34,7 @@ public class DiaryDao {
                 String title = resultSet.getString("TITLE");
                 String description = resultSet.getString("DESCRIPTION");
                 String begin = resultSet.getString("BEGIN");
-                String isPublic = resultSet.getString("ISPUBLIC");
+                boolean isPublic = resultSet.getBoolean("ISPUBLIC");
                 diaries.add(new Diary(id, title, description, begin, isPublic));
             }
         } catch (SQLException e) {
@@ -51,7 +50,7 @@ public class DiaryDao {
             preparedStatement.setString(1, diary.getTitle());
             preparedStatement.setString(2, diary.getDescription());
             preparedStatement.setString(3, diary.getBegin());
-            preparedStatement.setString(4, diary.getIsPublic());
+            preparedStatement.setBoolean(4, diary.isPublic());
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -66,7 +65,7 @@ public class DiaryDao {
             preparedStatement.setString(1, diary.getTitle());
             preparedStatement.setString(2, diary.getDescription());
             preparedStatement.setString(3, diary.getBegin());
-            preparedStatement.setString(4, diary.getIsPublic());
+            preparedStatement.setBoolean(4, diary.isPublic());
             preparedStatement.setInt(5, diary.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
