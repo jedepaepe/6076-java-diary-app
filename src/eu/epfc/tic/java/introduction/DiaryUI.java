@@ -1,5 +1,6 @@
 package eu.epfc.tic.java.introduction;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,8 +10,8 @@ public class DiaryUI {
     public static void show(List<Diary> diaries) {
         System.out.println("\nListe des rendez-vous");
         for(Diary d : diaries) {
-            System.out.println(String.join(" - ", "" + d.getId(), d.getTitle(), d.getDescription(), d.getBegin(),
-                    "" + d.isPublic()));
+            System.out.println(String.join(" - ", "" + d.getId(), d.getTitle(), d.getDescription(),
+                    d.getBegin().toString(), "" + d.isPublic()));
         }
     }
 
@@ -43,7 +44,7 @@ public class DiaryUI {
         System.out.print("Description: ");
         String description = scanner.nextLine();
         System.out.print("Date de début: ");
-        String begin = scanner.nextLine();
+        LocalDateTime begin = LocalDateTime.parse(scanner.nextLine());
         System.out.print("Is public? ");
         boolean isPublic = Boolean.parseBoolean(scanner.nextLine());
         return new Diary(title, description, begin, isPublic);

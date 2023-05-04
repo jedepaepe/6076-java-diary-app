@@ -1,20 +1,22 @@
 package eu.epfc.tic.java.introduction;
 
+import java.time.LocalDateTime;
+
 public class Diary {
     private int id;
     private String title;
     private String description;
-    private String begin;
+    private LocalDateTime begin;
     private boolean isPublic;
 
-    public Diary(String title, String description, String begin, boolean isPublic) {
+    public Diary(String title, String description, LocalDateTime begin, boolean isPublic) {
         this.title = title;
         this.description = description;
         this.begin = begin;
         this.isPublic = isPublic;
     }
 
-    public Diary(int id, String title, String description, String begin, boolean isPublic) {
+    public Diary(int id, String title, String description, LocalDateTime begin, boolean isPublic) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -46,11 +48,11 @@ public class Diary {
         this.description = description;
     }
 
-    public String getBegin() {
+    public LocalDateTime getBegin() {
         return begin;
     }
 
-    public void setBegin(String begin) {
+    public void setBegin(LocalDateTime begin) {
         this.begin = begin;
     }
 

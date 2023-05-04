@@ -1,6 +1,7 @@
 package eu.epfc.tic.java.introduction;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class DiaryDao {
                     "ID integer primary key auto_increment," +
                     "TITLE varchar(100) not null," +
                     "DESCRIPTION varchar(1000)," +
-                    "BEGIN varchar(40) not null," +
+                    "BEGIN TIMESTAMP not null," +
                     "ISPUBLIC boolean" +
                     ")";
             Statement statement = connection.createStatement();
@@ -33,7 +34,7 @@ public class DiaryDao {
                 int id = resultSet.getInt("ID");
                 String title = resultSet.getString("TITLE");
                 String description = resultSet.getString("DESCRIPTION");
-                String begin = resultSet.getString("BEGIN");
+                LocalDateTime begin = resultSet.getTimestamp("BEGIN").toLocalDateTime();
                 boolean isPublic = resultSet.getBoolean("ISPUBLIC");
                 diaries.add(new Diary(id, title, description, begin, isPublic));
             }
@@ -49,7 +50,7 @@ public class DiaryDao {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, diary.getTitle());
             preparedStatement.setString(2, diary.getDescription());
-            preparedStatement.setString(3, diary.getBegin());
+            preparedStatement.setTimestamp(3, Timestamp.valueOf(diary.getBegin()));
             preparedStatement.setBoolean(4, diary.isPublic());
             preparedStatement.execute();
         } catch (SQLException e) {
@@ -64,7 +65,7 @@ public class DiaryDao {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, diary.getTitle());
             preparedStatement.setString(2, diary.getDescription());
-            preparedStatement.setString(3, diary.getBegin());
+            preparedStatement.setTimestamp(3, Timestamp.valueOf(diary.getBegin()));
             preparedStatement.setBoolean(4, diary.isPublic());
             preparedStatement.setInt(5, diary.getId());
             preparedStatement.execute();
